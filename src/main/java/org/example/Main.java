@@ -46,8 +46,10 @@ public class Main {
                 .redefine(type, locator)
                 .method(named("isEnhanced").and(returns(boolean.class)))
                 .intercept(FixedValue.value(true))
-                .defineMethod("addedMethod", boolean.class, Modifier.PUBLIC)
-                .intercept(FixedValue.value(true))
+//                // optional: when this is activated, IntelliJ throws an error at 'Apply HotSwap'
+//                // because the JRE (jbr / dcevm) doesn't support reloading classes when number of methods gets changed.
+//                .defineMethod("addedMethod", boolean.class, Modifier.PUBLIC)
+//                .intercept(FixedValue.value(true))
                 .make()) {
             enhancedType.load(classLoader, ClassLoadingStrategy.Default.INJECTION);
         }
