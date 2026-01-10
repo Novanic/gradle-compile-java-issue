@@ -7,7 +7,7 @@ import org.hotswap.agent.javassist.NotFoundException;
 
 import java.io.IOException;
 
-@Plugin(name = "ByteCodeEnhancement", testedVersions = {"DCEVM"})
+@Plugin(name = "ByteCodeEnhancement", testedVersions = {"1.0"})
 public class ByteCodeEnhancementHotswapPlugin {
 
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
