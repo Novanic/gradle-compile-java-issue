@@ -10,18 +10,9 @@ import java.io.IOException;
 @Plugin(name = "ByteCodeEnhancement", testedVersions = {"DCEVM"})
 public class ByteCodeEnhancementHotswapPlugin {
 
-    private static final String HOTSWAP_AGENT_CLINIT_METHOD = "$$ha$clinit";
-
-    public static boolean reloadFlag;
-
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
     public static void patch(final CtClass ctClass, final ClassLoader classLoader, final Class<?> originalClass) throws IOException, CannotCompileException, NotFoundException {
         System.out.println("patch ByteCodeEnhancementHotswapPlugin");
-    }
-
-    @Init
-    public static void init() {
-        System.out.println("My HotswapAgent plugin loaded");
     }
 
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
