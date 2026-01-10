@@ -4,7 +4,6 @@ import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.ClassFileLocator;
 import net.bytebuddy.dynamic.DynamicType;
-import net.bytebuddy.dynamic.loading.ClassLoadingStrategy;
 import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.pool.TypePool;
 import org.hotswap.agent.annotation.*;
@@ -41,16 +40,7 @@ public class ByteCodeEnhancementHotswapPlugin {
         return bytes;
     }
 
-    @OnClassFileEvent(classNameRegexp = ".*")
-    public void onClassFile() {
-        System.out.println("onClassFile");
-    }
-
-    @OnResourceFileEvent(path = "/")
-    public void onResourceChanged() {
-        System.out.println("onResourceChanged");
-    }
-
+    //TODO reuse code of Main.enhance()
     private static byte[] enhance() {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
         ClassFileLocator locator =
