@@ -7,11 +7,7 @@ import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.implementation.FixedValue;
 import net.bytebuddy.pool.TypePool;
 import org.hotswap.agent.annotation.*;
-import org.hotswap.agent.javassist.CannotCompileException;
-import org.hotswap.agent.javassist.CtClass;
-import org.hotswap.agent.javassist.NotFoundException;
 
-import java.io.IOException;
 import java.lang.reflect.Modifier;
 
 import static net.bytebuddy.matcher.ElementMatchers.named;
@@ -21,21 +17,11 @@ import static net.bytebuddy.matcher.ElementMatchers.returns;
 public class ByteCodeEnhancementHotswapPlugin {
 
     @OnClassLoadEvent(classNameRegexp = ".*", events = LoadEvent.REDEFINE)
-    public static byte[] patch(final CtClass ctClass, final ClassLoader classLoader, final Class<?> originalClass, byte[] bytes) throws IOException, CannotCompileException, NotFoundException {
-        System.out.println("ByteCodeEnhancementHotswapPlugin: patch class " + originalClass.getName());
+    public static byte[] onClassLoad(final Class<?> originalClass, byte[] bytes) {
+        System.out.println("ByteCodeEnhancementHotswapPlugin - onClassLoad: " + originalClass.getName());
 
         if("org.example.enhanced.EnhancedPOJO".equals(originalClass.getName())) {
-            System.out.println("original methods: " + originalClass.getMethods().length);
-            try {
-                Class<?> alreadyEnhancedClass = classLoader.loadClass("org.example.enhanced.EnhancedPOJO");
-                System.out.println("org.example.enhanced.EnhancedPOJO enhanced found? " + (alreadyEnhancedClass != null));
-
-                System.out.println("alreadyEnhancedClass methods: " + alreadyEnhancedClass.getMethods().length);
-
-                return enhance();
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            return enhance();
         }
         return bytes;
     }
