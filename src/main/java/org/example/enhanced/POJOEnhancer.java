@@ -20,7 +20,8 @@ public class POJOEnhancer {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         enhanceInternal(className, t -> {
-            t.load(classLoader, ClassLoadingStrategy.Default.INJECTION); return new byte[0];
+            t.load(classLoader, ClassLoadingStrategy.Default.INJECTION);
+            return new byte[0];
         });
     }
 
