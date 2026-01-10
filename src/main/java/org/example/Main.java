@@ -26,6 +26,7 @@ public class Main {
 
             System.out.println("EnhancedPOJO version: " + enhancedPojo.getVersion());
             System.out.println("EnhancedPOJO enhanced: " + enhancedPojo.isEnhanced());
+            System.out.println("EnhancedPOJO method number: " + EnhancedPOJO.class.getMethods().length);
 
             Thread.sleep(2000L);
         } while(true);
@@ -48,8 +49,8 @@ public class Main {
                 .intercept(FixedValue.value(true))
 //                // optional: when this is activated, IntelliJ throws an error at 'Apply HotSwap'
 //                // because the JRE (jbr / dcevm) doesn't support reloading classes when number of methods gets changed.
-//                .defineMethod("addedMethod", boolean.class, Modifier.PUBLIC)
-//                .intercept(FixedValue.value(true))
+                .defineMethod("addedMethod", boolean.class, Modifier.PUBLIC)
+                .intercept(FixedValue.value(true))
                 .make()) {
             enhancedType.load(classLoader, ClassLoadingStrategy.Default.INJECTION);
         }
